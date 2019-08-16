@@ -1,0 +1,120 @@
+<html>
+	<head>
+		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	</head>
+	<body>
+
+		<div id='miapp'>
+			<div class='visor' v-bind:class="{ negativo: visor<0 }">{{ visor }}</div>				
+			
+			<a href="#" v-on:click="addValue($event)"><div class='tecla'> / </div></a>
+			<a href="#" v-on:click="addValue($event)"><div class='tecla'> * </div></a>
+			<a href="#" v-on:click="addValue($event)"><div class='tecla'> + </div></a>
+			<a href="#" v-on:click="addValue($event)"><div class='tecla'> - </div></a>
+
+			<div class='clear'></div>
+
+			<a href="#" v-on:click="addValue($event)"><div class='tecla'> 7 </div></a>
+			<a href="#" v-on:click="addValue($event)"><div class='tecla'> 8 </div></a>
+			<a href="#" v-on:click="addValue($event)"><div class='tecla'> 9 </div></a>
+			<a href="#" v-on:click="clear($event)"><div class='tecla'> C </div></a>
+
+			<div class='clear'></div>
+
+			<a href="#" v-on:click="addValue($event)"><div class='tecla'> 4 </div></a>
+			<a href="#" v-on:click="addValue($event)"><div class='tecla'> 5 </div></a>
+			<a href="#" v-on:click="addValue($event)"><div class='tecla'> 6 </div></a>
+
+			<div class='clear'></div>
+
+			<a href="#" v-on:click="addValue($event)"><div class='tecla'> 1 </div></a>
+			<a href="#" v-on:click="addValue($event)"><div class='tecla'> 2 </div></a>
+			<a href="#" v-on:click="addValue($event)"><div class='tecla'> 3 </div></a>
+
+			<div class='clear'></div>
+
+			<a href="#" v-on:click="calcular($event)"><div class='tecla calcular'> Calcular </div></a>
+
+			<div class='clear'></div>
+
+			<div class='operacion' v-for="o in operaciones">
+				{{ o }}
+			</div>
+		</div>
+
+		<script>
+			var app = new Vue({
+				el: '#miapp',
+				data: {
+					visor: "",
+					operaciones: []
+					},
+				methods: {
+					addValue: function(e) {
+						e.preventDefault();
+
+						this.visor+=e.target.innerText;
+						},
+					calcular: function(e) {
+						e.preventDefault();
+
+						var v=eval( this.visor );
+						this.operaciones.push( this.visor+" = "+v );
+						this.visor=v;
+						},
+					clear: function(e) {
+						e.preventDefault();
+
+						this.visor="";
+						}
+
+					}
+				});
+
+			//app.$data.visor='Adios mundo cruel';
+		</script>
+
+		<style>
+			a {
+				color: #666;
+				text-decoration: none;
+				}
+
+			#miapp {
+				width: 280px;
+				}
+
+			.visor, .tecla {
+				height: 18px;
+				margin: 5px;
+				background-color: #bbb;
+				padding: 5px;
+				text-align :right;
+				border: 1px solid #666;
+				border-radius: 4px;
+				color: #666;
+				}
+
+			.tecla {
+				float: left;
+				width: 40px; 
+				text-align: center;
+				}
+
+			.visor {
+				width: 225px;
+				}
+			.calcular {
+				width: 165px;
+				}
+
+			.clear {
+				clear: both;
+				}
+
+			.negativo {
+				color: #b00;
+				}
+		</style>
+	</body>
+</html>
